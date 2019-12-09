@@ -54,9 +54,9 @@ public class NioGroupChatClient {
         }
     }
     /**
-     * @Author ZhangSheng
-     * @param
      * @Description 监听读取服务器发送过来的消息
+     * @param
+     * @Author ZhangSheng
      */
     public void readInfo() {
         int select =0;
