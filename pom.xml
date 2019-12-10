@@ -44,6 +44,7 @@
     <modules>
         <module>spring-security1</module>
         <module>spring-security2</module>
+        <module>stream-deamo</module>
         <module>nio-groupchat</module>
     </modules>
 </project>

@@ -27,10 +27,10 @@ public class StartConfig {
         return schedulerFactoryBean;
     }
 
-    @Bean
-    public Scheduler scheduler() {
-        return schedulerFactoryBean().getScheduler();
-    }
+//    @Bean
+//    public Scheduler scheduler() {
+//        return schedulerFactoryBean().getScheduler();
+//    }
 
 
 
