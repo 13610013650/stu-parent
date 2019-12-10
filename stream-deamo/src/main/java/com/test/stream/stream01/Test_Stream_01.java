@@ -64,8 +64,7 @@ public class Test_Stream_01 {
                 students.stream()
                         .collect(
                                 Collectors.groupingBy(
-                                        Student::getName,
-                                        Collectors.summarizingDouble(Student::getScore)
+                                        Student::getName,Collectors.summarizingDouble(Student::getScore)
                                 )
                         );
 
