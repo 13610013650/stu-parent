@@ -60,5 +60,7 @@
         <module>httpservletresponsewrapper-demo</module>
         <module>spring-design</module>
         <module>activiti-demo</module>
+        <module>spring-aop-demo</module>
+        <module>stream-deamo</module>
     </modules>
 </project>
