@@ -19,6 +19,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <activiti-version>6.0.0</activiti-version>
     </properties>
 
     <repositories>
@@ -38,13 +39,26 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-basic</artifactId>
+                <version>${activiti-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>6.0.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
         <module>spring-security1</module>
         <module>spring-security2</module>
-        <module>stream-deamo</module>
         <module>nio-groupchat</module>
+        <module>packagefunction-demo</module>
+        <module>httpservletresponsewrapper-demo</module>
+        <module>spring-design</module>
+        <module>activiti-demo</module>
     </modules>
 </project>

@@ -1,10 +1,18 @@
 package com.test.stream.stream01;
+
+import com.sun.org.apache.xpath.internal.SourceTree;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.junit.Test;
+
+import javax.swing.*;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.maxBy;
 
 /**
  * @program: stu-parent
@@ -12,6 +20,7 @@ import java.util.stream.Collectors;
  * @author: Mr.Zhang
  * @create: 2019-11-28 16:21
  **/
+
 public class Test_Stream_01 {
 
     /**
