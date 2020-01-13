@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: springboot-activiti
+  profiles:
+    include: datasource
+  # activiti 配置
+  activiti:
+    database-schema-update: true
+    # 自动部署验证
+    check-process-definitions: false
+    # activiti BPMN文件的位置
+    process-definition-location-prefix: classpath:/processes/
+    # 历史记录等级
+    history-level: full
+    # 是否使用act—id-identity表
+    db-identity-used: true
+
+# mybatis配置
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.example.entity
+
+
+
+
+
+
+
+
