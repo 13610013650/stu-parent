@@ -24,19 +24,19 @@ public class Employee {
     private String name;
     private Double salary;
 
-    public static List<Employee> getEmpList(){
-        List<Employee> employees = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            employees.add(new Employee("emp"+i,Math.random() * 1000));
-        }
-        return  employees;
-    }
+     public static List<Employee> getEmpList(){
+         List<Employee> employees = new ArrayList<>();
+         for (int i = 1; i <= 20; i++) {
+             employees.add(new Employee("emp"+i,Math.random() * 1000));
+         }
+         return  employees;
+     }
 
-    @Override
-    public String toString(){
-        return new StringBuilder()
-                .append("name:").append(name)
-                .append("salary:").append(salary).toString();
-    }
+     @Override
+     public String toString(){
+         return new StringBuilder()
+                 .append("name:").append(name)
+                 .append("salary:").append(salary).toString();
+     }
 
 }

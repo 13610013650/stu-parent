@@ -1,31 +1,21 @@
  package com.stu.activiti.domain.service.impl;
 
  import com.stu.activiti.domain.service.ActivitiHistoryService;
- import com.stu.activiti.domain.service.ActivitiRuntimeService;
  import com.stu.activiti.enu.BpmsActivityTypeEnum;
- import com.stu.activiti.utils.UtilMisc;
+ import com.stu.activiti.utils.ManageUtil;
  import org.activiti.bpmn.model.BpmnModel;
  import org.activiti.bpmn.model.FlowNode;
  import org.activiti.bpmn.model.SequenceFlow;
  import org.activiti.engine.HistoryService;
  import org.activiti.engine.ProcessEngine;
- import org.activiti.engine.ProcessEngines;
  import org.activiti.engine.RepositoryService;
  import org.activiti.engine.history.HistoricActivityInstance;
  import org.activiti.engine.history.HistoricProcessInstance;
  import org.activiti.engine.history.HistoricTaskInstance;
- import org.activiti.engine.runtime.ProcessInstance;
- import org.activiti.engine.task.Task;
  import org.activiti.image.ProcessDiagramGenerator;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.stereotype.Service;
-
- import javax.imageio.ImageIO;
- import java.awt.image.BufferedImage;
- import java.io.File;
- import java.io.FileOutputStream;
  import java.io.InputStream;
- import java.io.OutputStream;
  import java.util.ArrayList;
  import java.util.LinkedList;
  import java.util.List;
@@ -164,7 +154,7 @@ public class ActivitiHistoryServiceImpl implements ActivitiHistoryService {
                      HistoricActivityInstance historicActivityInstance = hActivityIns.get(s.getId());
                      if (historicActivityInstance!=null) {
                          String s1 = String.valueOf(historicActivityInstance.getStartTime().getTime());
-                         Map<String, String> sMap = UtilMisc.toMap("flowId", s.getId(), "activityStartTime", s1);
+                         Map<String, String> sMap = ManageUtil.toMap("flowId", s.getId(), "activityStartTime", s1);
                          tempMapList.add(sMap);
                      }
                  });

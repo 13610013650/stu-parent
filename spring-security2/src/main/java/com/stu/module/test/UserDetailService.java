@@ -20,11 +20,6 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    static {
-        ApplicationContext context = new ClassPathXmlApplicationContext("");
-        context.getBean(User.class);
-        ApplicationContext context1 = new ClassPathXmlApplicationContext("");
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

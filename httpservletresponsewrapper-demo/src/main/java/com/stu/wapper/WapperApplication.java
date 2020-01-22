@@ -12,7 +12,8 @@
  * @Date: 2019/12/20 16:36
  * @Version: 1.0
  */
- @SpringBootApplication
+
+@SpringBootApplication
 public class WapperApplication {
 
     public static void main(String[] args) {

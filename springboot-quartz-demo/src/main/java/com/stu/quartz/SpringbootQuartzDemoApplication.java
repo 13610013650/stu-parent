@@ -1,16 +1,13 @@
-package com.stu.module;
+package com.stu.quartz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author ZhangSheng
- */
 @SpringBootApplication
-public class SpringSecurity2Application{
+public class SpringbootQuartzDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSecurity2Application.class, args);
+		SpringApplication.run(SpringbootQuartzDemoApplication.class, args);
 	}
 
 }
