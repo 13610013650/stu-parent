@@ -19,7 +19,9 @@
 public class HelloJob implements BaseJob{
 
      @Override
-     public void execute(JobExecutionContext var1) throws JobExecutionException {
+     public void execute(JobExecutionContext var1)
+             throws JobExecutionException {
         log.info("hello job 正在执行,{}", LocalDateTime.now());
      }
+
  }

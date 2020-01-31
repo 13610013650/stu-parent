@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringbootQuartzDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootQuartzDemoApplication.class, args);
+		SpringApplication.run(SpringbootQuartzDemoApplication.class,args);
 	}
 
 }

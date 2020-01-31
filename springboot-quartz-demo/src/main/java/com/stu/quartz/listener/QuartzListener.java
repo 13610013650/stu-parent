@@ -17,7 +17,7 @@
 public class QuartzListener implements ApplicationListener{
 
 
-//   @Autowired
+     @Autowired
      private Scheduler scheduler;
 
      @Override

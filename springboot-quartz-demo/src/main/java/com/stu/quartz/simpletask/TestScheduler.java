@@ -20,8 +20,6 @@ public class TestScheduler {
 
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-
-
         JobDetail jobDetail = JobBuilder.newJob(TestJob.class)
                 .withIdentity("job1","group")
                 .build();

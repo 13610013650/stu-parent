@@ -1,1 +1,15 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 30m
+    context-path: /quartz
+
+
+spring:
+  datasource:
+    driver-class-name: com.alibaba.druid.proxy.DruidDriver
+    url: jdbc:mysql://localhost:3306/quartz
+    username: root
+    password: root
 
