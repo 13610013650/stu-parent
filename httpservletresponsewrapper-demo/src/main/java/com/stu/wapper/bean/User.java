@@ -13,15 +13,15 @@
  * @Date: 2019/12/25 11:05
  * @Version: 1.0
  */
- @Data
+@Data
 public class User implements Serializable{
 
     private String userId;
 
-    private String userName;
+     private String userName;
 
-    private String password;
+     private String password;
 
-    private int age;
+     private int age;
 
 }

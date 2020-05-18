@@ -67,6 +67,7 @@
         <module>rocketmq-demo</module>
         <module>springboot-quartz-demo</module>
         <module>reflection-demo</module>
+        <module>spring-valied</module>
     </modules>
 
     <build>

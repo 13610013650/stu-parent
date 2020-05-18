@@ -9,7 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringbootHelloStarterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootHelloStarterApplication.class, args);
+		SpringApplication
+                .run(
+                        SpringbootHelloStarterApplication.class,
+                        args
+                );
 	}
 
 }

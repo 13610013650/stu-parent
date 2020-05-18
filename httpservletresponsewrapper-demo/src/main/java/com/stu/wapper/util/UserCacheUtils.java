@@ -22,6 +22,7 @@ public class UserCacheUtils {
      public static User get(){
          return userThreadLocal.get();
      }
+
      public static void set(User user){
          userThreadLocal.set(user);
      }

@@ -9,7 +9,7 @@
  * @Package: com.stu.activiti
  * @ClassName: ActivitiApplication
  * @Author: ZhangSheng
- * @Description: ${description}  
+ * @Description: 主启动类
  * @Date: 2019/12/31 11:14
  * @Version: 1.0
  */

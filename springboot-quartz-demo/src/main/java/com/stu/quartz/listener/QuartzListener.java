@@ -6,14 +6,14 @@
  import org.springframework.context.ApplicationListener;
 
  /**
- * @ProjectName: stu-parent 
- * @Package: com.stu.quartz.listener
- * @ClassName: QuartzListener
- * @Author: ZhangSheng
- * @Description: ${description}  
- * @Date: 2020/1/18 15:37
- * @Version: 1.0
- */
+  * @ProjectName: stu-parent
+  * @Package: com.stu.quartz.listener
+  * @ClassName: QuartzListener
+  * @Author: ZhangSheng
+  * @Description: ${description}
+  * @Date: 2020/1/18 15:37
+  * @Version: 1.0
+  */
 public class QuartzListener implements ApplicationListener{
 
 

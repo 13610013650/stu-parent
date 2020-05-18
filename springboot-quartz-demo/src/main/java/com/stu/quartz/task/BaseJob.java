@@ -9,7 +9,7 @@
  * @Package: com.stu.quartz.task
  * @ClassName: BaseJob
  * @Author: ZhangSheng
- * @Description: ${description}  
+ * @Description:
  * @Date: 2020/1/18 17:28
  * @Version: 1.0
  */
