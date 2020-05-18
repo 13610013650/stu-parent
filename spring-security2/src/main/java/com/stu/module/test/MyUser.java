@@ -11,16 +11,16 @@ import java.io.Serializable;
 @Data
 @ToString
 public class MyUser implements Serializable {
-    
+
     private String userName;
 
     private String password;
 
     private boolean accountNonExpired = true;
 
-    private boolean accountNonLocked= true;
+    private boolean accountNonLocked = true;
 
-    private boolean credentialsNonExpired= true;
+    private boolean credentialsNonExpired = true;
 
-    private boolean enabled= true;
+    private boolean enabled = true;
 }

@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @create: 2019-11-08 18:03
  **/
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyAuthenticationSucessHandler authenticationSucessHandler;
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .authorizeRequests() // 授权配置
                 // 登录跳转 URL 无需认证
-                .antMatchers("/authentication/require" , "/login.html").permitAll()
+                .antMatchers("/authentication/require", "/login.html").permitAll()
                 // 所有请求
                 .anyRequest()
                 // 都需要认证

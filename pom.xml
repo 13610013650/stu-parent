@@ -63,7 +63,6 @@
         <module>spring-aop-demo</module>
         <module>stream-deamo</module>
         <module>springboot-checker-starter</module>
-        <module>springboot-hello-starter</module>
         <module>rocketmq-demo</module>
         <module>springboot-quartz-demo</module>
         <module>reflection-demo</module>

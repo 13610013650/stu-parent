@@ -8,7 +8,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -25,7 +24,8 @@ public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandl
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    @Autowired private ObjectMapper mapper;
+    @Autowired
+    private ObjectMapper mapper;
 
 
     @Override
@@ -36,7 +36,7 @@ public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandl
         //response.setContentType("application/json;charset=utf-8")
         //response.getWriter().write(mapper.writeValueAsString(authentication))
         //跳转到具体的页面
-         redirectStrategy.sendRedirect(request,response,"/index");
+        redirectStrategy.sendRedirect(request, response, "/index");
 //        SavedRequest savedRequest = requestCache.getRequest(request, response);
 //        System.out.println("savedRequest:"+savedRequest);
 //        String redirectUrl = savedRequest.getRedirectUrl();

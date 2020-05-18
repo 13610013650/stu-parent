@@ -17,7 +17,7 @@ public class TestController {
 
 
     @GetMapping("index")
-    public Object index(){
+    public Object index() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 

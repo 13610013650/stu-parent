@@ -31,7 +31,7 @@ public class BrowserSecurityController {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();
-            if(StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
+            if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
                 redirectStrategy.sendRedirect(request, response, "/login.html");
             }
         }
