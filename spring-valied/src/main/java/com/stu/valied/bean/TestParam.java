@@ -1,10 +1,14 @@
 package com.stu.valied.bean;
 
 
+import com.stu.valied.excption.AddGroup;
+import com.stu.valied.excption.ListValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -13,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class TestParam {
 
 
-    @NotNull
+    @NotBlank(groups = {AddGroup.class})
     private  String id;
 
 
@@ -25,6 +29,6 @@ public class TestParam {
 
     private String url;
 
-
-    private String status;
+    @ListValue(vals = {0,1},groups = {AddGroup.class})
+    private Integer status;
 }
