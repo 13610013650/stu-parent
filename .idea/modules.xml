@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/activiti-demo/activiti-demo.iml" filepath="$PROJECT_DIR$/activiti-demo/activiti-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/httpservletresponsewrapper-demo/httpservletresponsewrapper-demo.iml" filepath="$PROJECT_DIR$/httpservletresponsewrapper-demo/httpservletresponsewrapper-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nio-groupchat/nio-groupchat.iml" filepath="$PROJECT_DIR$/nio-groupchat/nio-groupchat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packagefunction-demo/packagefunction-demo.iml" filepath="$PROJECT_DIR$/packagefunction-demo/packagefunction-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reflection-demo/reflection-demo.iml" filepath="$PROJECT_DIR$/reflection-demo/reflection-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rocketmq-demo/rocketmq-demo.iml" filepath="$PROJECT_DIR$/rocketmq-demo/rocketmq-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-aop-demo/spring-aop-demo.iml" filepath="$PROJECT_DIR$/spring-aop-demo/spring-aop-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-design/spring-design.iml" filepath="$PROJECT_DIR$/spring-design/spring-design.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-security1/spring-security1.iml" filepath="$PROJECT_DIR$/spring-security1/spring-security1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-security2/spring-security2.iml" filepath="$PROJECT_DIR$/spring-security2/spring-security2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-valied/spring-valied.iml" filepath="$PROJECT_DIR$/spring-valied/spring-valied.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-checker-starter/springboot-checker-starter.iml" filepath="$PROJECT_DIR$/springboot-checker-starter/springboot-checker-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-quartz-demo/springboot-quartz-demo.iml" filepath="$PROJECT_DIR$/springboot-quartz-demo/springboot-quartz-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stream-deamo/stream-deamo.iml" filepath="$PROJECT_DIR$/stream-deamo/stream-deamo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/stu-parent.iml" filepath="$PROJECT_DIR$/.idea/stu-parent.iml" />
+    </modules>
+  </component>
+</project>

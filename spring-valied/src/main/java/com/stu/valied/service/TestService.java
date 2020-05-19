@@ -1,4 +1,9 @@
 package com.stu.valied.service;
 
-public class TestService {
+public interface TestService {
+
+
+    String sayHello();
+
+
 }
