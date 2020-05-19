@@ -6,7 +6,11 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * @Author ZhangSheng
+ * @Description 状态类型的参数校验器
+ * @Date 22:42 2020/5/19
+ **/
 public class TestParamValidator implements ConstraintValidator<ListValue, Integer> {
 
     private Set<Integer> set = new HashSet<>();

@@ -37,7 +37,7 @@ public class GlobalParamValidator {
 
 
     @ExceptionHandler(Throwable.class)
-    public R ex(Throwable e){
+    public R exceptionHandler(Throwable e){
         StackTraceElement stackTrace = e.getStackTrace()[0];
         StringBuilder message = new StringBuilder();
         message.append(stackTrace.getClassName());

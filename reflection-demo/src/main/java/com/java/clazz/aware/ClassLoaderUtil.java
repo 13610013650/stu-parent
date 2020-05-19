@@ -15,7 +15,7 @@
 @Component
 public class ClassLoaderUtil implements BeanClassLoaderAware {
 
-    private static ClassLoader classLoader;
+     private static ClassLoader classLoader;
 
      @Override
      public void setBeanClassLoader(ClassLoader classLoader) {

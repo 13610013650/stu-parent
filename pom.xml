@@ -67,6 +67,7 @@
         <module>springboot-quartz-demo</module>
         <module>reflection-demo</module>
         <module>spring-valied</module>
+        <module>spring-api-idempotence</module>
     </modules>
 
     <build>
