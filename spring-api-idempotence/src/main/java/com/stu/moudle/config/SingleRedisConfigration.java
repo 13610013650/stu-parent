@@ -19,7 +19,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @EnableCaching
-public class RedisConfigration extends CachingConfigurerSupport {
+public class SingleRedisConfigration extends CachingConfigurerSupport {
 
     @Bean
     @Override
@@ -57,20 +57,5 @@ public class RedisConfigration extends CachingConfigurerSupport {
         return redisTemplate;
     }
 
-    /**
-     * 设置spring session redis 序列化方式
-     *
-     * @param factory
-     * @return
-     */
-//    @Bean
-////    public SessionRepository sessionRepository(RedisConnectionFactory factory) {
-////        RedisOperationsSessionRepository sessionRepository = new RedisOperationsSessionRepository(
-////                redisTemplate(factory));
-////        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
-////        sessionRepository.setDefaultSerializer(fastJsonRedisSerializer);
-////        sessionRepository.setDefaultMaxInactiveInterval(36000);
-////        return sessionRepository;
-////    }
 
 }
