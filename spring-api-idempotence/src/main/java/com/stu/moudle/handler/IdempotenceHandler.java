@@ -1,13 +1,10 @@
 package com.stu.moudle.handler;
 
-
 import com.stu.moudle.annotation.ApiIdempotence;
+import com.stu.moudle.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
@@ -17,18 +14,13 @@ import java.lang.reflect.Method;
  */
 public class IdempotenceHandler implements HandlerInterceptor {
 
-    private static final String TOKEN_KEY = "token";
-
-
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    @Autowired private TokenService tokenService;
 
     /**
      * 1、拦截所有请求
-     *
-     * @param request
-     * @param response
-     * @param handler
+     * @param request: 请求对象
+     * @param response: 响应对象
+     * @param handler: 方法映射
      * @return
      * @throws Exception
      */
@@ -40,29 +32,12 @@ public class IdempotenceHandler implements HandlerInterceptor {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
-
         HandlerMethod handler1 = (HandlerMethod) handler;
         Method method = handler1.getMethod();
         ApiIdempotence annotation = method.getAnnotation(ApiIdempotence.class);
         // 2、存在ApiIdempotence注解 校验幂等性
         if (annotation != null) {
-            // 2.1、请求头中是否存在token 抛出异常
-            String token = request.getHeader(TOKEN_KEY);
-            if (StringUtils.isEmpty(token)) {
-                token = request.getParameter(TOKEN_KEY);
-                if (StringUtils.isEmpty(token)) {
-                    throw new RuntimeException("api token is empty...");
-                }
-            }
-            if (!redisTemplate.hasKey(token)) {
-                throw new RuntimeException("token is nonexistent ...");
-            }
-            // 3、删除token
-            Boolean delete = redisTemplate.delete(token);
-            if (!delete) {
-                // 删除成功 放行
-                throw new RuntimeException("token is nonexistent ...");
-            }
+            tokenService.checkToken(request);
         }
         return true;
     }
