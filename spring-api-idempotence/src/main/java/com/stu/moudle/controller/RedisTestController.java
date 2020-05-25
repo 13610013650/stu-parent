@@ -3,10 +3,12 @@ package com.stu.moudle.controller;
 import com.stu.moudle.annotation.ApiIdempotence;
 import com.stu.moudle.bean.TestParam;
 import com.stu.moudle.utils.RedisCacheManagement;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+/**
+ * 接口幂等性功能测试。
+ */
+@RestController
 @RequestMapping(value = "/api/redis")
 public class RedisTestController {
 
