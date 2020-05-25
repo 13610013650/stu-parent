@@ -5,6 +5,7 @@ import com.stu.moudle.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
@@ -27,7 +28,6 @@ public class IdempotenceHandler implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-
         // 1、判断方法是不是 HandlerMethod 方法 不是就放行不走 过滤器
         if (!(handler instanceof HandlerMethod)) {
             return true;

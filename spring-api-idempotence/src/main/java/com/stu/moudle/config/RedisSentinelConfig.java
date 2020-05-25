@@ -107,9 +107,12 @@ public class RedisSentinelConfig {
      */
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
+        //单机模式
+//        JedisConnectionFactory factory1 = new JedisConnectionFactory(getJedisPoolConfig());
         // 集群模式
 //        JedisConnectionFactory factory = new JedisConnectionFactory(redisClusterConfiguration(), getJedisPoolConfig());
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisSentinelConfiguration(), getJedisPoolConfig());
+        jedisConnectionFactory.afterPropertiesSet();
         return jedisConnectionFactory;
     }
 
@@ -133,30 +136,17 @@ public class RedisSentinelConfig {
         // 开启redis数据库事务的支持
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
-
         // 如果不配置Serializer，那么存储的时候缺省使用String，如果用User类型存储，那么会提示错误User can't cast to
-        // String！
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-
         redisTemplate.setKeySerializer(stringRedisSerializer);
         // hash的key也采用String的序列化方式
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
-
-        // jackson序列化对象设置
-//        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(
-//                Object.class);
         // fastJson序列化对象设置
         FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
-
-//        ObjectMapper om = new ObjectMapper();
-//        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//        jackson2JsonRedisSerializer.setObjectMapper(om);
-
         // value序列化方式采用jackson
         redisTemplate.setValueSerializer(fastJsonRedisSerializer);
         // hash的value序列化方式采用jackson
         redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);
-
         redisTemplate.afterPropertiesSet();
     }
 }
