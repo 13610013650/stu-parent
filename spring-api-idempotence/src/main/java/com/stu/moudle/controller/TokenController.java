@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TokenController {
 
 
-    @Autowired
-    private TokenService tokenService;
+    @Autowired private TokenService tokenService;
 
     @RequestMapping(value = "/token", method = RequestMethod.GET)
     public String get() {
