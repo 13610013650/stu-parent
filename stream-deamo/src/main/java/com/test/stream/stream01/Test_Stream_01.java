@@ -83,12 +83,12 @@ public class Test_Stream_01 {
     }
 
     /**
-    　* @description: 获取list中最大的值
-    　* @param
-    　* @return
-    　* @author Mr.Zhang
-    　* @date 2019/11/29 17:00
-    　**/
+     　* @description: 获取list中最大的值
+     　* @param
+     　* @return
+     　* @author Mr.Zhang
+     　* @date 2019/11/29 17:00
+     　**/
     @Test
     public void testGetMax(){
         List<Student> students = getData();
@@ -161,8 +161,13 @@ public class Test_Stream_01 {
 @NoArgsConstructor
 @AllArgsConstructor
 class Student{
+
+
     private String id;
     private String name;
     private String officeNo;
     private Double score;
+
+
+
 }
