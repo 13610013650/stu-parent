@@ -11,7 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class TestParam implements Serializable {
 
-
     private String id;
 
     private String name;

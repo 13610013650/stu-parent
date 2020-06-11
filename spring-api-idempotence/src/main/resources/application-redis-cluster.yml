@@ -1,0 +1,23 @@
+## Redis 哨兵配置
+spring:
+  redis:
+    password: foo
+    database: 0
+    timeout: 5000
+    cluster:
+      max-redirects:
+      nodes:
+        - 192.168.49.144:6381
+        - 192.168.49.152:6379
+        - 192.168.49.153:6380
+    jedis:
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-idle: 8
+        max-wait: -1
+        time-between-eviction-runs: -1
+        min-evictable-idle-time-millis: 1800000
+        num-tests-pereviction-run: 3
+        test-on-borrow: true
+        test-while-idle: true

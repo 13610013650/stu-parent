@@ -26,8 +26,7 @@ public class IdempotenceHandler implements HandlerInterceptor {
      * @throws Exception
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 1、判断方法是不是 HandlerMethod 方法 不是就放行不走 过滤器
         if (!(handler instanceof HandlerMethod)) {
             return true;

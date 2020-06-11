@@ -1,19 +1,13 @@
 package com.stu.moudle.service.impl;
-
-
 import com.stu.moudle.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-/**
- *
- */
 @Service
 public class TokenServiceImpl implements TokenService {
 
@@ -32,6 +26,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void checkToken(HttpServletRequest request) {
+
         String token = request.getHeader(TOKEN_KEY);
         if (StringUtils.isEmpty(token)){
             token = request.getParameter(TOKEN_KEY);
