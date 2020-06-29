@@ -1,4 +1,4 @@
-package com.stu.thread.demo;
+package com.stu.thread.demo.thread_keyword;
 
 
 import java.io.IOException;
