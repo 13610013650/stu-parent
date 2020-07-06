@@ -6,6 +6,9 @@ package com.stu.thread.demo.ticket_windows;
  */
 public class TicketWindows {
 
+    /**
+     * 票数
+     */
     private int ticketNumber;
 
     TicketWindows(int ticketNumber){

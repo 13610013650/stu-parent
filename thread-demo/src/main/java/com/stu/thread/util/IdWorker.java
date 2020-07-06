@@ -1,78 +1,67 @@
-package com.stu.module.test;
+package com.stu.thread.util;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
 
+/**
+ * <p>名称：IdWorker.java</p>
+ * <p>描述：分布式自增长ID</p>
+ * <pre>
+ *     Twitter的 Snowflake　JAVA实现方案
+ * </pre>
+ * 核心代码为其IdWorker这个类实现，其原理结构如下，我分别用一个0表示一位，用—分割开部分的作用：
+ * 1||0---0000000000 0000000000 0000000000 0000000000 0 --- 00000 ---00000 ---000000000000
+ * 在上面的字符串中，第一位为未使用（实际上也可作为long的符号位），接下来的41位为毫秒级时间，
+ * 然后5位datacenter标识位，5位机器ID（并不算标识符，实际是为线程标识），
+ * 然后12位该毫秒内的当前毫秒内的计数，加起来刚好64位，为一个Long型。
+ * 这样的好处是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞（由datacenter和机器ID作区分），
+ * 并且效率较高，经测试，snowflake每秒能够产生26万ID左右，完全满足需要。
+ * <p>
+ * 64位ID (42(毫秒)+5(机器ID)+5(业务编码)+12(重复累加))
+ *
+ * @author Polim
+ */
 public class IdWorker {
-    /**
-     * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
-     */
+    // 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
     private final static long twepoch = 1288834974657L;
-    /**
-     * 机器标识位数
-     */
+    // 机器标识位数
     private final static long workerIdBits = 5L;
-    /**
-     * 数据中心标识位数
-     */
+    // 数据中心标识位数
     private final static long datacenterIdBits = 5L;
-    /**
-     * 机器ID最大值
-     */
+    // 机器ID最大值
     private final static long maxWorkerId = -1L ^ (-1L << workerIdBits);
-    /**
-     * 数据中心ID最大值
-     */
+    // 数据中心ID最大值
     private final static long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-    /**
-     * 毫秒内自增位
-     */
+    // 毫秒内自增位
     private final static long sequenceBits = 12L;
-    /**
-     * 机器ID偏左移12位
-     */
+    // 机器ID偏左移12位
     private final static long workerIdShift = sequenceBits;
-    /**
-     * 数据中心ID左移17位
-     */
+    // 数据中心ID左移17位
     private final static long datacenterIdShift = sequenceBits + workerIdBits;
-    /**
-     * 时间毫秒左移22位
-     */
+    // 时间毫秒左移22位
     private final static long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
 
     private final static long sequenceMask = -1L ^ (-1L << sequenceBits);
-    /**
-     * 上次生产id时间戳
-     */
+    /* 上次生产id时间戳 */
     private static long lastTimestamp = -1L;
-    /**
-     * 0，并发控制
-     */
+    // 0，并发控制
     private long sequence = 0L;
 
     private final long workerId;
-    /**
-     * 数据标识id部分
-     */
+    // 数据标识id部分
     private final long datacenterId;
 
-    public IdWorker() {
+    public IdWorker(){
         this.datacenterId = getDatacenterId(maxDatacenterId);
         this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);
     }
-
     /**
-     * @param workerId     工作机器ID
-     * @param datacenterId 序列号
+     * @param workerId
+     *            工作机器ID
+     * @param datacenterId
+     *            序列号
      */
     public IdWorker(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
@@ -84,7 +73,6 @@ public class IdWorker {
         this.workerId = workerId;
         this.datacenterId = datacenterId;
     }
-
     /**
      * 获取下一个ID
      *
@@ -137,14 +125,14 @@ public class IdWorker {
         mpid.append(datacenterId);
         String name = ManagementFactory.getRuntimeMXBean().getName();
         if (!name.isEmpty()) {
-            /*
-             * GET jvmPid
-             */
+         /*
+          * GET jvmPid
+          */
             mpid.append(name.split("@")[0]);
         }
-        /*
-         * MAC + PID 的 hashcode 获取16个低位
-         */
+      /*
+       * MAC + PID 的 hashcode 获取16个低位
+       */
         return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
     }
 
@@ -172,49 +160,9 @@ public class IdWorker {
         return id;
     }
 
-    public static void main(String[] args) throws UnknownHostException, SocketException, InterruptedException {
-//        IdWorker idWorker = new IdWorker();
-//        Set<Long> ids = new HashSet<>();
-//        test2(idWorker, ids);
-//        System.out.println(ids.size());
-        System.out.println(0x000000FF);
-    }
-
-    private static void test(IdWorker idWorker, Set<Long> ids) throws InterruptedException {
-        CountDownLatch countDownLatch = new CountDownLatch(10000);
-        for (int i = 0; i <10000; i++) {
-            new Thread(()->{
-                long l = idWorker.nextId();
-                synchronized (ids) {
-                    ids.add(l);
-                }
-                countDownLatch.countDown();
-            }).start();
-        }
-        countDownLatch.await();
-    }
-
-    private static void test2(IdWorker idWorker, Set<Long> ids) throws InterruptedException {
-        CountDownLatch countDownLatch = new CountDownLatch(10000);
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(10000);
-        for (int i = 0; i < 10000; i++) {
-            new Thread(()->{
-                try {
-                    cyclicBarrier.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (BrokenBarrierException e) {
-                    e.printStackTrace();
-                }
-                long l = idWorker.nextId();
-                synchronized (ids){
-                    ids.add(l);
-                }
-                System.out.println(l);
-                countDownLatch.countDown();
-            }).start();
-        }
-        countDownLatch.await();
+    public static void main(String[] args) throws UnknownHostException {
+        InetAddress localHost = InetAddress.getLocalHost();
+        System.out.println(localHost);
     }
 
 

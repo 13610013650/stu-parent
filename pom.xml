@@ -69,6 +69,7 @@
         <module>spring-valied</module>
         <module>spring-api-idempotence</module>
         <module>thread-demo</module>
+        <module>spring-execl-demo</module>
     </modules>
 
     <build>

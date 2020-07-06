@@ -1,5 +1,8 @@
  package com.stu.design.proxy;
-/**
+
+ import org.springframework.stereotype.Service;
+
+ /**
  * @ProjectName: stu-parent 
  * @Package: com.stu.design.proxy
  * @ClassName: JieLunMrZhou
@@ -8,6 +11,7 @@
  * @Date: 2020/1/13 15:01
  * @Version: 1.0
  */
+@Service
 public class JieLunMrZhou implements HoldConcert{
 
     @Override

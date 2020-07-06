@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.UUID;
 
 
+/**
+ * 自定义实现消息队列
+ */
 @Slf4j
 public class MessageQueue {
 
@@ -16,6 +19,10 @@ public class MessageQueue {
 
     private LinkedList<Message> queue = new LinkedList();
 
+    /**
+     * 往队列添加消息
+     * @param message： 消息对象
+     */
     public void add(Message message) {
         synchronized (LOCK) {
             while (queue.size() == MAX_NUMBER) {
@@ -32,6 +39,10 @@ public class MessageQueue {
         }
     }
 
+    /**
+     * 获取消息队列的消息，无消息时阻塞。
+     * @return
+     */
     public Message take() {
         synchronized (LOCK) {
             while (queue.isEmpty()) {
