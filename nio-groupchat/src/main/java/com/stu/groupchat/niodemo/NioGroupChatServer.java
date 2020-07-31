@@ -92,7 +92,7 @@ public class NioGroupChatServer {
             if (read > 0){
                 // 将缓冲区的数据 转换成字符串
                 String msg = new String(byteBuffer.array());
-                System.out.println("from 客户端:" + msg);
+                System.out.println("from 客户端:" + msg.trim());
 
                 //再向其他的客户端发送消息
                 sendInfoToOtherClients(msg,socketChannel);
@@ -117,7 +117,7 @@ public class NioGroupChatServer {
      * @Description 发送消息给其他的客户端
      */
     public void sendInfoToOtherClients(String msg , SocketChannel myself) throws IOException {
-        System.out.println("服务器转发消息中...");
+        log.debug("服务器转发消息中...");
         // 遍历 选择器中所有的客户端
         for (SelectionKey selectionKey: selector.keys()){
             // 根据selectKey 拿到对应客户端的 管道
@@ -129,7 +129,7 @@ public class NioGroupChatServer {
                 ByteBuffer byteBuffer = ByteBuffer.wrap(msg.getBytes());
                 socketChannel.write(byteBuffer);
             }
-            System.out.println("服务器转发消息完成...");
+            log.debug("服务器转发消息完成...");
         }
     }
 

@@ -72,7 +72,6 @@ public class NioGroupChatClient {
                 SelectionKey selectionKey = iterator.next();
                 if (selectionKey.isReadable()){
                     SocketChannel channel = (SocketChannel)selectionKey.channel();
-
                     ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
                     try {
                         channel.read(byteBuffer);
@@ -101,7 +100,6 @@ public class NioGroupChatClient {
                 }
             }
         }).start();
-
         //发送数据给服务器端
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
