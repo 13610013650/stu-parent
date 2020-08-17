@@ -1,8 +1,21 @@
 server:
   port: 8080
 
-spring:
-  application:
-    name: rocket-demo
+rocketmq:
+  producer:
+    send-message-timeout: 3000
+    compress-message-body-threshold: 4096
+    max-message-size: 4194304
+    retry-times-when-send-async-failed: 0
+    retry-next-server: true
+    retry-times-when-send-failed: 2
+    group: rocketmq-group
+  name-server: 192.168.44.144:9876
+
+
+
+
+
+
 
 
