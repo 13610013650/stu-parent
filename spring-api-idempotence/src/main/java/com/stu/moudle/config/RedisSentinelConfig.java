@@ -4,6 +4,7 @@ import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
@@ -98,6 +99,21 @@ public class RedisSentinelConfig {
         redisSentinelConfiguration.setPassword(RedisPassword.of(password));
         return redisSentinelConfiguration;
     }
+
+   public RedisClusterConfiguration redisClusterConfiguration(){
+       RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration();
+       Set<RedisNode> nodes = new HashSet<>();
+       String[] ips = sentinelNodes.split(",");
+       for (int i = 0; i < ips.length; i++) {
+           String[] ip_port = ips[i].split(":");
+           nodes.add(new RedisNode(ip_port[0].trim(), Integer.valueOf(ip_port[1])));
+       }
+       redisClusterConfiguration.setClusterNodes(nodes);
+       redisClusterConfiguration.setMaxRedirects(3);
+       redisClusterConfiguration.setPassword(RedisPassword.of(password));
+       return redisClusterConfiguration;
+   }
+
 
 
     /**
