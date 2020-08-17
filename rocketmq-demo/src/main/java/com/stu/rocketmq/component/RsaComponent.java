@@ -25,7 +25,6 @@ import java.util.Map;
 @Component
 public class RsaComponent implements InitializingBean {
 
-
     private static final Logger logger = LoggerFactory.getLogger(RsaUtil.class);
     /**
      * 放置公钥与私钥
