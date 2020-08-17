@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
- * 添加跨域和接口token严重的过滤器
+ * 添加跨域和接口token验证过滤器
  */
 @Configuration
 public class WebFilterAdapter extends WebMvcConfigurationSupport {
