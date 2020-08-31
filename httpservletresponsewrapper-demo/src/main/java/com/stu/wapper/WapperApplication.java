@@ -2,6 +2,7 @@
 
  import org.springframework.boot.SpringApplication;
  import org.springframework.boot.autoconfigure.SpringBootApplication;
+ import org.springframework.boot.web.servlet.ServletComponentScan;
 
  /**
  * @ProjectName: stu-parent 
@@ -12,7 +13,7 @@
  * @Date: 2019/12/20 16:36
  * @Version: 1.0
  */
-
+@ServletComponentScan
 @SpringBootApplication
 public class WapperApplication {
 

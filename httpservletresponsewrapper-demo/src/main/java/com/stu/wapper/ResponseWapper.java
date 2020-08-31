@@ -2,6 +2,7 @@
 
  import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
+ import org.springframework.stereotype.Component;
 
  import javax.servlet.http.HttpServletResponse;
  import javax.servlet.http.HttpServletResponseWrapper;
@@ -16,6 +17,7 @@
  * @Date: 2019/12/20 16:39
  * @Version: 1.0
  */
+ @Component
 public class ResponseWapper extends HttpServletResponseWrapper {
 
      private static final Logger logger = LoggerFactory.getLogger(ResponseWapper.class);

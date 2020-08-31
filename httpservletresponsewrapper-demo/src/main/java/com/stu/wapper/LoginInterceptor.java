@@ -7,11 +7,15 @@
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.lang.Nullable;
  import org.springframework.stereotype.Component;
+ import org.springframework.web.HttpRequestHandler;
+ import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.method.HandlerMethod;
  import org.springframework.web.servlet.HandlerInterceptor;
  import org.springframework.web.servlet.ModelAndView;
 
  import javax.servlet.http.HttpServletRequest;
  import javax.servlet.http.HttpServletResponse;
+ import java.lang.annotation.Annotation;
  import java.util.Enumeration;
  import java.util.UUID;
 
@@ -40,15 +44,20 @@ public class LoginInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                              @Nullable ModelAndView modelAndView) throws Exception {
          logger.info("--------------处理请求时视图的处理操作---------------");
-         System.out.println("getContextPath:"+request.getContextPath());
-         System.out.println("getRequestURI:"+request.getRequestURI());
-         System.out.println("getParameter:"+request.getParameter("param"));
-         System.out.println("authType:"+request.getAuthType());
-         System.out.println("Lock-Token:"+request.getHeader("Lock-Token"));
+         logger.info("getContextPath:"+request.getContextPath());
+         logger.info("getRequestURI:"+request.getRequestURI());
+         logger.info("getParameter:"+request.getParameter("param"));
+         logger.info("authType:"+request.getAuthType());
+         logger.info("Lock-Token:"+request.getHeader("Lock-Token"));
          Enumeration<String> headerNames = request.getHeaderNames();
          while(headerNames.hasMoreElements()){
-             System.out.println("headerNames:" + headerNames.nextElement());
+             logger.info("headerNames:" + headerNames.nextElement());
          }
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        GetMapping annotation = handlerMethod.getMethod().getAnnotation(GetMapping.class);
+        if (annotation !=null ){
+            logger.info("存在 GettMapping 注解.");
+        }
         User user = new User();
         user.setUserId(UUID.randomUUID().toString());
         user.setAge(26);
@@ -62,5 +71,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                                   @Nullable Exception ex) throws Exception {
          logger.info("---------------视图渲染之后的操作--------------------------");
 //        UserCacheUtils.clear();
-     }
+        User user = UserCacheUtils.get();
+        logger.info("获取缓存中的USER："+user.toString());
+    }
 }

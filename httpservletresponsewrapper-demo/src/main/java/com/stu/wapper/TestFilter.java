@@ -1,5 +1,8 @@
  package com.stu.wapper;
 
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+
  import javax.servlet.*;
  import javax.servlet.annotation.WebFilter;
  import javax.servlet.http.HttpServletResponse;
@@ -18,11 +21,13 @@
 @WebFilter("/test/*")
 public class TestFilter implements Filter{
 
+    private Logger logger = LoggerFactory.getLogger(TestFilter.class);
+
      @Override
      public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
          String contentType = httpResponse.getContentType();
-         System.out.println("contentType:"+contentType);
+         logger.info("contentType:"+contentType);
          ResponseWapper responseWapper = new ResponseWapper(httpResponse);
          chain.doFilter(request, responseWapper);
          // 获取缓存的响应数据
