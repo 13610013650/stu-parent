@@ -21,11 +21,21 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class RsaComponent implements InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(RsaUtil.class);
+
+    private static final String PUBLIC_KEY = "public";
+
+    private static final String PRIVATE_KEY = "private";
+
+    public static class Encryption{
+        public static final String RSA = "RSA";
+    }
+
     /**
      * 放置公钥与私钥
      * <p>
@@ -41,16 +51,16 @@ public class RsaComponent implements InitializingBean {
      * @return
      */
     public String getPublicKey() {
-        String publicKey = keyMap.get("public");
+        String publicKey = keyMap.get(PUBLIC_KEY);
         if (publicKey == null) {
             // 加锁 防止多线程生产多个密钥
             synchronized (keyMap.getClass()) {
                 if (publicKey == null) {
                     try {
-                        genKeyPair();
-                        publicKey = keyMap.get("public");
+                        createKeyPair();
+                        publicKey = keyMap.get(PUBLIC_KEY);
                     } catch (NoSuchAlgorithmException e) {
-                        logger.error("获取随机公私钥错误", e);
+                        logger.error("获取随机公私钥错误:{}", e.getMessage());
                     }
                 }
             }
@@ -64,9 +74,9 @@ public class RsaComponent implements InitializingBean {
      * @return 私钥
      */
     private  String getPrivateKey() {
-        String privateKey = keyMap.get("private");
+        String privateKey = keyMap.get(PRIVATE_KEY);
         if (privateKey == null) {
-            logger.error("未获取私钥!!!");
+            logger.error("未获取到私钥...");
         }
         return privateKey;
     }
@@ -76,9 +86,9 @@ public class RsaComponent implements InitializingBean {
      *
      * @throws NoSuchAlgorithmException
      */
-    public  void genKeyPair() throws NoSuchAlgorithmException {
+    public  void createKeyPair() throws NoSuchAlgorithmException {
         // KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(Encryption.RSA);
         // 初始化密钥对生成器，密钥大小为96-1024位
         keyPairGen.initialize(1024, new SecureRandom());
         // 生成一个密钥对，保存在keyPair中
@@ -91,8 +101,8 @@ public class RsaComponent implements InitializingBean {
         // 得到私钥字符串
         String privateKeyString = new String(Base64.encodeBase64((privateKey.getEncoded())));
         // 将公钥和私钥保存到Map
-        keyMap.put("public", publicKeyString);
-        keyMap.put("private", privateKeyString);
+        keyMap.put(PUBLIC_KEY, publicKeyString);
+        keyMap.put(PRIVATE_KEY, privateKeyString);
         logger.info("自动生成的公钥：{}",publicKeyString);
         logger.info("自动生成的私钥：{}",privateKeyString);
     }
@@ -107,9 +117,9 @@ public class RsaComponent implements InitializingBean {
     public  String encrypt(String str) throws Exception {
         //base64编码的公钥
         byte[] decoded = Base64.decodeBase64(getPublicKey());
-        RSAPublicKey pubKey = (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(decoded));
+        RSAPublicKey pubKey = (RSAPublicKey) KeyFactory.getInstance(Encryption.RSA).generatePublic(new X509EncodedKeySpec(decoded));
         //RSA加密
-        Cipher cipher = Cipher.getInstance("RSA");
+        Cipher cipher = Cipher.getInstance(Encryption.RSA);
         cipher.init(Cipher.ENCRYPT_MODE, pubKey);
         String outStr = Base64.encodeBase64String(cipher.doFinal(str.getBytes("UTF-8")));
         return outStr;
@@ -124,32 +134,31 @@ public class RsaComponent implements InitializingBean {
      */
     public  String decrypt(String str) {
         String outStr = "";
-        //64位解码加密后的字符串
+        // 64位解码加密后的字符串
         byte[] inputByte;
         try {
             inputByte = Base64.decodeBase64(str.getBytes("UTF-8"));
             //base64编码的私钥
             byte[] decoded = Base64.decodeBase64(getPrivateKey());
-            RSAPrivateKey priKey = (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(decoded));
+            RSAPrivateKey priKey = (RSAPrivateKey) KeyFactory.getInstance(Encryption.RSA).generatePrivate(new PKCS8EncodedKeySpec(decoded));
             //RSA解密
-            Cipher cipher = Cipher.getInstance("RSA");
+            Cipher cipher = Cipher.getInstance(Encryption.RSA);
             cipher.init(Cipher.DECRYPT_MODE, priKey);
             outStr = new String(cipher.doFinal(inputByte));
         } catch (UnsupportedEncodingException e) {
-            logger.error("不支持的编码", e);
+            logger.error("不支持的编码:{}", e.getMessage());
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            logger.error("未找到找到指定算法", e);
+            logger.error("未找到找到指定算法:{}", e.getMessage());
         } catch (InvalidKeyException e) {
-            logger.error("无效的秘钥", e);
+            logger.error("无效的秘钥:{}", e.getMessage());
         } catch (NoSuchPaddingException e) {
-            logger.error("请求特定填充机制, 但该环境中未提供时", e);
+            logger.error("请求特定填充机制, 但该环境中未提供时:{}", e.getMessage());
         } catch (BadPaddingException e) {
-            logger.error("预期对输入数据使用特定填充机制, 但未正确填充数据", e);
+            logger.error("预期对输入数据使用特定填充机制, 但未正确填充数据:{}", e.getMessage());
         } catch (InvalidKeySpecException e) {
-            logger.error("无效的密钥规范", e);
+            logger.error("无效的密钥规范:{}", e.getMessage());
         } catch (IllegalBlockSizeException e) {
-            logger.error("非法的块大小", e);
+            logger.error("非法的块大小:{}", e.getMessage());
         }
         return outStr;
     }
@@ -159,7 +168,7 @@ public class RsaComponent implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        genKeyPair();
+        createKeyPair();
     }
 
 //    public static void main(String[] args) throws Exception {

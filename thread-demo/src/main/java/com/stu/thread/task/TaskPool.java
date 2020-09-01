@@ -8,7 +8,6 @@ public class TaskPool<T extends BaseTask> implements TaskPoolExcutor<BaseTask> {
 
     private LinkedBlockingQueue<T> TASK_QUEUE = new LinkedBlockingQueue<>();
 
-
     private TaskPool() {
 
     }

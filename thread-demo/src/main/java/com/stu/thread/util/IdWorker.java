@@ -99,7 +99,6 @@ public class IdWorker {
         long nextId = ((timestamp - twepoch) << timestampLeftShift)
                 | (datacenterId << datacenterIdShift)
                 | (workerId << workerIdShift) | sequence;
-
         return nextId;
     }
 
@@ -121,19 +120,20 @@ public class IdWorker {
      * </p>
      */
     protected static long getMaxWorkerId(long datacenterId, long maxWorkerId) {
+        StringBuffer mpid = getStringBuffer(datacenterId);
+        // MAC + PID 的 hashcode 获取16个低位
+        return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
+    }
+
+    private static StringBuffer getStringBuffer(long datacenterId) {
         StringBuffer mpid = new StringBuffer();
         mpid.append(datacenterId);
         String name = ManagementFactory.getRuntimeMXBean().getName();
         if (!name.isEmpty()) {
-         /*
-          * GET jvmPid
-          */
+         // GET jvmPid
             mpid.append(name.split("@")[0]);
         }
-      /*
-       * MAC + PID 的 hashcode 获取16个低位
-       */
-        return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
+        return mpid;
     }
 
     /**
@@ -143,6 +143,11 @@ public class IdWorker {
      */
     protected static long getDatacenterId(long maxDatacenterId) {
         long id = 0L;
+        id = getId(maxDatacenterId, id);
+        return id;
+    }
+
+    private static long getId(long maxDatacenterId, long id) {
         try {
             InetAddress ip = InetAddress.getLocalHost();
             NetworkInterface network = NetworkInterface.getByInetAddress(ip);
@@ -163,6 +168,7 @@ public class IdWorker {
     public static void main(String[] args) throws UnknownHostException {
         InetAddress localHost = InetAddress.getLocalHost();
         System.out.println(localHost);
+        System.out.println(ManagementFactory.getRuntimeMXBean().getName());
     }
 
 

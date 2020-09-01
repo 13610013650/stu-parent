@@ -25,15 +25,15 @@ public class MessageProducer {
     @RequestMapping(value = "/queue1/{message}", method = RequestMethod.GET)
     public String testRocketMq(@PathVariable("message") String message) throws Exception {
         log.info("开始发送消息-------");
-        System.out.println("..........开始发送消息..........");
         Message<String> newMessage = new Message<String>();
         newMessage.setId(UUID.randomUUID().toString().replace("-",""));
         newMessage.setObject(message);
         String messageJson = JSON.toJSONString(newMessage);
+        log.info("加密前的消息:" + messageJson);
         String jmMessage = rsaComponent.encrypt(messageJson);
-        log.info("加密后的消息1："+jmMessage);
+        log.info("加密后的消息："+jmMessage);
         rocketMQTemplate.convertAndSend("topic-queue-one", jmMessage);
-        System.out.println("..........发送消息完成..........");
+        log.info("发送消息完成-------");
         return messageJson;
     }
 

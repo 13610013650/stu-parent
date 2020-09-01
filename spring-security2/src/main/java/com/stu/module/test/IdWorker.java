@@ -173,11 +173,8 @@ public class IdWorker {
     }
 
     public static void main(String[] args) throws UnknownHostException, SocketException, InterruptedException {
-//        IdWorker idWorker = new IdWorker();
-//        Set<Long> ids = new HashSet<>();
-//        test2(idWorker, ids);
-//        System.out.println(ids.size());
-        System.out.println(0x000000FF);
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        System.out.println(name);
     }
 
     private static void test(IdWorker idWorker, Set<Long> ids) throws InterruptedException {

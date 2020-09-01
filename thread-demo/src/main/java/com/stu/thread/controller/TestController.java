@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "test/")
+@RequestMapping(value = "/test")
 public class TestController {
 
 
-    @RequestMapping(value = "task/{taskId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/task/{taskId}", method = RequestMethod.GET)
     public String task(@PathVariable(value = "taskId") String taskId) {
         Task task = new Task();
         task.setTaskId(taskId);

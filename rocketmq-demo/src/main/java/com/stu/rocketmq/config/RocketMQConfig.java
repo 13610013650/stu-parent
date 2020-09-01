@@ -28,8 +28,9 @@ public class RocketMQConfig {
     private int retryTimesWhenSendFailed;
     @Value("${rocketmq.producer.group:rocketmq-group}")
     private String group;
-    @Value("${rocketmq.name-server:192.168.44.144:9876}")
+    @Value("${rocketmq.name-server:localhost:9876}")
     private String nameServer;
+
 
 
     @Bean
